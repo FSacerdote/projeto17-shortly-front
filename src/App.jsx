@@ -14,11 +14,11 @@ function App() {
       <ResetCss/>
       <GlobalStyle/>
       <Routes>
-        <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/home" element={<UserHome></UserHome>}></Route>
-        <Route path="/cadastro" element={<SignUp></SignUp>}></Route>
-        <Route path="/login" element={<SignIn></SignIn>}></Route>
-        <Route path="/ranking" element={<Ranking></Ranking>}></Route>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/home" element={<UserHome/>}/>
+        <Route path="/cadastro" element={<SignUp/>}/>
+        <Route path="/login" element={<SignIn/>}/>
+        <Route path="/ranking" element={<Ranking/>}/>
       </Routes>
     </BrowserRouter>
   )
