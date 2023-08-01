@@ -5,8 +5,8 @@ export default function HeaderDeslogado(){
     return(
     <Header>
         <Links>
-            <Login>Entrar</Login>
-            <Cadastro>Cadastrar-se</Cadastro>
+            <h1>Entrar</h1>
+            <h2>Cadastrar-se</h2>
         </Links>
         <img src={logo} alt="Logo do site" />
     </Header>
@@ -30,17 +30,8 @@ const Links = styled.div`
     justify-content: flex-end;
     width: 100%;
     gap: 0px 22px;
-    p{
-        font-family: 'Lexend Deca', sans-serif;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: normal;
-    }
-`
-
-const Cadastro = styled.p`
-    color: #9C9C9C;
-`
-const Login = styled.p`
-    color: #5D9040;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
 `
