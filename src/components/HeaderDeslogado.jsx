@@ -1,9 +1,19 @@
 import { styled } from "styled-components";
 import logo from "./../assets/logo.png"
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 export default function HeaderDeslogado(){
     const navigate = useNavigate()
+    const {token} = useContext(UserContext)
+
+    useEffect(()=>{
+        if (token) {
+            navigate("/home")
+        }
+    }, [])
+
     return(
     <Header>
         <Links>

@@ -9,17 +9,26 @@ export default function HeaderLogado(){
     const navigate = useNavigate()
     const [user, setUser] = useState()
 
-    const {token} = useContext(UserContext)
+    const {token, setToken} = useContext(UserContext)
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
         }
     }
     useEffect(()=>{
+        if (!token) {
+            navigate("/")
+        }
         axios.get(`${import.meta.env.VITE_API_URL}/users/me`, config)
             .then((resposta)=> setUser(resposta.data))
             .catch((error)=>console.log(error.response))
     }, [])
+
+    function logout(){
+        setToken(null)
+        localStorage.clear()
+        navigate("/")
+    }
 
     return(
     <Header>
@@ -28,7 +37,7 @@ export default function HeaderLogado(){
             <Links>
                 <p onClick={()=>navigate("/home")}>Home</p>
                 <p onClick={()=>navigate("/ranking")}>Ranking</p>
-                <Sair onClick={()=>navigate("/")}>Sair</Sair>
+                <Sair onClick={logout}>Sair</Sair>
             </Links>
         </Topo>
         <img onClick={()=>navigate("/home")} src={logo} alt="Logo do site" />
