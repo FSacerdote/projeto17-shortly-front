@@ -1,14 +1,16 @@
 import { styled } from "styled-components";
 import logo from "./../assets/logo.png"
+import { useNavigate } from "react-router-dom";
 
 export default function HeaderDeslogado(){
+    const navigate = useNavigate()
     return(
     <Header>
         <Links>
-            <h1>Entrar</h1>
-            <h2>Cadastrar-se</h2>
+            <h1 onClick={()=>navigate("/login")}>Entrar</h1>
+            <h2 onClick={()=>navigate("/cadastro")}>Cadastrar-se</h2>
         </Links>
-        <img src={logo} alt="Logo do site" />
+        <img onClick={()=>navigate("/")} src={logo} alt="Logo do site" />
     </Header>
     )
 }

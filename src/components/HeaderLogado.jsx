@@ -1,18 +1,20 @@
 import { styled } from "styled-components";
 import logo from "./../assets/logo.png"
+import { useNavigate } from "react-router-dom";
 
 export default function HeaderLogado(){
+    const navigate = useNavigate()
     return(
     <Header>
         <Topo>
             <Mensagem>Seja bem-vindo(a), Pessoa!</Mensagem>
             <Links>
-                <p>Home</p>
-                <p>Ranking</p>
-                <Sair>Sair</Sair>
+                <p onClick={()=>navigate("/home")}>Home</p>
+                <p onClick={()=>navigate("/ranking")}>Ranking</p>
+                <Sair onClick={()=>navigate("/")}>Sair</Sair>
             </Links>
         </Topo>
-        <img src={logo} alt="Logo do site" />
+        <img onClick={()=>navigate("/home")} src={logo} alt="Logo do site" />
     </Header>
     )
 }
