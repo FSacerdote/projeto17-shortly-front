@@ -2,12 +2,12 @@ import { styled } from "styled-components";
 import logo from "./../assets/logo.png"
 import { useNavigate } from "react-router-dom";
 
-export default function HeaderLogado(){
+export default function HeaderLogado({userName}){
     const navigate = useNavigate()
     return(
     <Header>
         <Topo>
-            <Mensagem>Seja bem-vindo(a), Pessoa!</Mensagem>
+            <Mensagem>Seja bem-vindo(a), {userName}!</Mensagem>
             <Links>
                 <p onClick={()=>navigate("/home")}>Home</p>
                 <p onClick={()=>navigate("/ranking")}>Ranking</p>

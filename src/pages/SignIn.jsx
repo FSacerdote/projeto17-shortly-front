@@ -7,8 +7,8 @@ import { UserContext } from "../contexts/UserContext"
 
 export default function SignIn (){
     const navigate = useNavigate()
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
     const {setToken} = useContext(UserContext)
 

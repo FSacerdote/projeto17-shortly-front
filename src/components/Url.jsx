@@ -1,13 +1,15 @@
 import { styled } from "styled-components"
 import trash from "../assets/trash.png"
 
-export default function Url(){
+export default function Url({urlObject}){
+    const {shortUrl, url, visitCount} = urlObject
+
     return(
         <Container>
             <Shorten>
-                <p>https://www.driven.com.br</p>
-                <p>e4231A</p>
-                <p>Quantidade de visitantes: 271</p>
+                <p>{url}</p>
+                <p>{shortUrl}</p>
+                <p>Quantidade de visitantes: {visitCount}</p>
             </Shorten>
             <Remove>
                 <img src={trash} alt="Simbolo de delete" />
@@ -36,6 +38,13 @@ const Shorten = styled.button`
     font-family: 'Lexend Deca', sans-serif;
     font-size: 14px;
     font-weight: 400;
+    text-overflow: '...';
+    p{
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+    }
 `
 const Remove = styled.button`
     display: flex;

@@ -1,23 +1,48 @@
 import { styled } from "styled-components";
 import HeaderLogado from "../components/HeaderLogado";
 import Url from "../components/Url";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { UserContext } from "../contexts/UserContext";
 
 export default function UserHome (){
+    const [newUrl, setNewUrl] = useState("")
+
+    const {token} = useContext(UserContext)
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const [user, setUser] = useState()
+
+    useEffect(()=>{
+        axios.get(`${import.meta.env.VITE_API_URL}/users/me`, config)
+            .then((resposta)=> setUser(resposta.data))
+            .catch((error)=>console.log(error.response))
+    }, [])
+
+    function postUrl (event){
+        event.preventDefault()
+        const body = {url: newUrl}
+        axios.post(`${import.meta.env.VITE_API_URL}/urls/shorten`, body, config)
+            .then(()=>location.reload())
+            .catch((error)=>{
+                if(error.response.status === 422) return alert("Formato inválido de url")
+                alert("Erro ao encurtar a url, tente novamente mais tarde")
+            })
+    }
+
     return(
         <HomePage>
-            <HeaderLogado></HeaderLogado>
+            <HeaderLogado userName={user?.name}></HeaderLogado>
             <Container>
-                <Encurtador>
-                    <input placeholder="Links que cabem no bolso" type="text" />
-                    <button>Encurtar link</button>
+                <Encurtador onSubmit={postUrl}>
+                    <input placeholder="Links que cabem no bolso" type="url" value={newUrl} onChange={(event)=> setNewUrl(event.target.value)} required/>
+                    <button type="submit">Encurtar link</button>
                 </Encurtador>
                 <Links>
-                    <Url></Url>
-                    <Url></Url>
-                    <Url></Url>
-                    <Url></Url>
-                    <Url></Url>
-                    <Url></Url> 
+                    {user?.shortenedUrls.map((url)=> <Url key={url.id} urlObject={url}></Url>)}
                 </Links>
             </Container>
         </HomePage>
@@ -37,7 +62,7 @@ const Container = styled.div`
     flex-direction: column;
 `
 
-const Encurtador = styled.div`
+const Encurtador = styled.form`
     display: flex;
     justify-content: space-between;
     input{
