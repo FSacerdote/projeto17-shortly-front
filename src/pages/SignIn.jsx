@@ -31,7 +31,7 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: Lexend Deca;
+    font-family: 'Lexend Deca', sans-serif;
     font-size: 14px;
     font-style: normal; 
     input{
