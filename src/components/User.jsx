@@ -1,9 +1,12 @@
 import { styled } from "styled-components"
 
-export default function User(){
+export default function User({user, index}){
+
+    const {name, linksCount, visitCount} = user
+
     return(
         <Container>
-            <span>1. Fulaninha -</span> 32 links - 1.703.584 visualizações
+            <span>{index + 1}. {name} -</span> {linksCount} links - {visitCount} visualizações
         </Container>
     )
 }

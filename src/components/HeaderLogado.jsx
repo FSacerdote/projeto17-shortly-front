@@ -1,13 +1,30 @@
 import { styled } from "styled-components";
 import logo from "./../assets/logo.png"
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../contexts/UserContext";
+import axios from "axios";
 
-export default function HeaderLogado({userName}){
+export default function HeaderLogado(){
     const navigate = useNavigate()
+    const [user, setUser] = useState()
+
+    const {token} = useContext(UserContext)
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    useEffect(()=>{
+        axios.get(`${import.meta.env.VITE_API_URL}/users/me`, config)
+            .then((resposta)=> setUser(resposta.data))
+            .catch((error)=>console.log(error.response))
+    }, [])
+
     return(
     <Header>
         <Topo>
-            <Mensagem>Seja bem-vindo(a), {userName}!</Mensagem>
+            <Mensagem>Seja bem-vindo(a), {user?.name}!</Mensagem>
             <Links>
                 <p onClick={()=>navigate("/home")}>Home</p>
                 <p onClick={()=>navigate("/ranking")}>Ranking</p>

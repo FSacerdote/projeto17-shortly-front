@@ -1,8 +1,19 @@
 import { styled } from "styled-components"
 import trofeu from "../assets/trofeu.png"
 import User from "./User"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 export default function ScoreBoard(){
+
+    const [users, setUsers] = useState([])
+
+    useEffect(()=>{
+        axios.get(`${import.meta.env.VITE_API_URL}/ranking`)
+            .then((resposta)=> setUsers(resposta.data))
+            .catch((error)=> console.log(error.response))
+    }, [])
+
     return(
     <Container>
         <Titulo>
@@ -11,16 +22,7 @@ export default function ScoreBoard(){
         </Titulo>
         <Ranking>
             <UsersContainer>
-                <User></User>
-                <User></User>
-                <User></User>
-                <User></User>
-                <User></User>
-                <User></User>
-                <User></User>
-                <User></User>
-                <User></User>
-                <User></User>
+                {users.map((user, index)=> <User key={index} index={index} user={user}></User>)}
             </UsersContainer>
         </Ranking>
     </Container>

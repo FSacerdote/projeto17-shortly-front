@@ -35,7 +35,7 @@ export default function UserHome (){
 
     return(
         <HomePage>
-            <HeaderLogado userName={user?.name}></HeaderLogado>
+            <HeaderLogado></HeaderLogado>
             <Container>
                 <Encurtador onSubmit={postUrl}>
                     <input placeholder="Links que cabem no bolso" type="url" value={newUrl} onChange={(event)=> setNewUrl(event.target.value)} required/>
