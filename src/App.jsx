@@ -6,6 +6,7 @@ import SignIn from "./pages/SignIn"
 import Ranking from "./pages/Ranking"
 import ResetCss from "./style/reset"
 import GlobalStyle from "./style/globalStyle"
+import { UserContextProvider } from "./contexts/UserContext"
 
 function App() {
 
@@ -13,13 +14,15 @@ function App() {
     <BrowserRouter>
       <ResetCss/>
       <GlobalStyle/>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/home" element={<UserHome/>}/>
-        <Route path="/cadastro" element={<SignUp/>}/>
-        <Route path="/login" element={<SignIn/>}/>
-        <Route path="/ranking" element={<Ranking/>}/>
-      </Routes>
+      <UserContextProvider>
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/home" element={<UserHome/>}/>
+            <Route path="/cadastro" element={<SignUp/>}/>
+            <Route path="/login" element={<SignIn/>}/>
+            <Route path="/ranking" element={<Ranking/>}/>
+        </Routes>
+      </UserContextProvider>
     </BrowserRouter>
   )
 }

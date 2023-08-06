@@ -1,13 +1,39 @@
 import { styled } from "styled-components"
 import HeaderDeslogado from "../components/HeaderDeslogado"
+import { useNavigate } from "react-router-dom"
+import { useContext, useState } from "react"
+import axios from "axios"
+import { UserContext } from "../contexts/UserContext"
 
 export default function SignIn (){
+    const navigate = useNavigate()
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+
+    const {setToken} = useContext(UserContext)
+
+    function login(event){
+        event.preventDefault()
+        const user = {email, password}
+        axios.post(`${import.meta.env.VITE_API_URL}/signin`, user)
+            .then((resposta)=>{
+                setToken(resposta.data.token)
+                localStorage.setItem("token", resposta.data.token)
+                navigate("/home")
+            })
+            .catch((error)=>{
+                if(error.response.status === 401) return alert("Login ou senha inválidos")
+                if(error.response.status === 422) return alert("Formato de senha ou login inválidos")
+                alert("Erro ao realizar o login, tente novamente mais tarde")
+            })
+    }
+
     return(
         <SignUpPage>
             <HeaderDeslogado/>
-            <Form>
-                <input type="text" placeholder="E-mail"/>
-                <input type="text" placeholder="Senha"/>
+            <Form onSubmit={login}>
+                <input type="email" placeholder="E-mail" value={email} onChange={(event)=> setEmail(event.target.value)} required/>
+                <input type="password" placeholder="Senha" value={password} onChange={(event)=> setPassword(event.target.value)} required/>
                 <button type="submit">Entrar</button>
             </Form>
         </SignUpPage>
