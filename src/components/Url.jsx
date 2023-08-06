@@ -1,17 +1,40 @@
 import { styled } from "styled-components"
 import trash from "../assets/trash.png"
+import axios from "axios"
+import { UserContext } from "../contexts/UserContext"
+import { useContext } from "react"
 
 export default function Url({urlObject}){
-    const {shortUrl, url, visitCount} = urlObject
+    const {shortUrl, url, visitCount, id} = urlObject
+
+    const {token} = useContext(UserContext)
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    function deleteUrl (){
+        axios.delete(`${import.meta.env.VITE_API_URL}/urls/${id}`, config)
+            .then(()=>location.reload())
+            .catch((error)=>{console.log(error.response)})
+    }
+
+    function openUrl (){
+        axios.get(`${import.meta.env.VITE_API_URL}/urls/open/${shortUrl}`)
+            .then()
+            .catch((error)=>console.log(error.response))
+    }
 
     return(
         <Container>
-            <Shorten>
+            <Shorten onClick={openUrl}>
                 <p>{url}</p>
                 <p>{shortUrl}</p>
                 <p>Quantidade de visitantes: {visitCount}</p>
             </Shorten>
-            <Remove>
+            <Remove  onClick={deleteUrl}>
                 <img src={trash} alt="Simbolo de delete" />
             </Remove>
         </Container>
