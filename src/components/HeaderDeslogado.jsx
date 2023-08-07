@@ -8,12 +8,6 @@ export default function HeaderDeslogado() {
     const navigate = useNavigate()
     const { token } = useContext(UserContext)
 
-    useEffect(() => {
-        if (token) {
-            navigate("/home")
-        }
-    }, [])
-
     return (
         <Header>
             <Links>

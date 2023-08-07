@@ -16,9 +16,6 @@ export default function HeaderLogado(){
         }
     }
     useEffect(()=>{
-        if (!token) {
-            navigate("/")
-        }
         axios.get(`${import.meta.env.VITE_API_URL}/users/me`, config)
             .then((resposta)=> setUser(resposta.data))
             .catch((error)=>console.log(error.response))
