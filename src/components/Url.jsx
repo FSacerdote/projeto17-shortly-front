@@ -4,7 +4,7 @@ import axios from "axios"
 import { UserContext } from "../contexts/UserContext"
 import { useContext } from "react"
 
-export default function Url({urlObject}){
+export default function Url({urlObject, contador, setContador}){
     const {shortUrl, url, visitCount, id} = urlObject
 
     const {token} = useContext(UserContext)
@@ -17,7 +17,7 @@ export default function Url({urlObject}){
 
     function deleteUrl (){
         axios.delete(`${import.meta.env.VITE_API_URL}/urls/${id}`, config)
-            .then(()=>location.reload())
+            .then(()=>setContador(contador + 1))
             .catch((error)=>{console.log(error.response)})
     }
 

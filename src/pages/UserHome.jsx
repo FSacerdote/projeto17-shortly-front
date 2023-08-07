@@ -7,6 +7,7 @@ import { UserContext } from "../contexts/UserContext";
 
 export default function UserHome (){
     const [newUrl, setNewUrl] = useState("")
+    const [contador, setContador] = useState(0)
 
     const {token} = useContext(UserContext)
     const config = {
@@ -20,13 +21,13 @@ export default function UserHome (){
         axios.get(`${import.meta.env.VITE_API_URL}/users/me`, config)
             .then((resposta)=> setUser(resposta.data))
             .catch((error)=>console.log(error.response))
-    }, [])
+    }, [contador])
 
     function postUrl (event){
         event.preventDefault()
         const body = {url: newUrl}
         axios.post(`${import.meta.env.VITE_API_URL}/urls/shorten`, body, config)
-            .then(()=>location.reload())
+            .then(()=>setContador(contador+1))
             .catch((error)=>{
                 if(error.response.status === 422) return alert("Formato inválido de url")
                 alert("Erro ao encurtar a url, tente novamente mais tarde")
@@ -42,7 +43,7 @@ export default function UserHome (){
                     <button type="submit">Encurtar link</button>
                 </Encurtador>
                 <Links>
-                    {user?.shortenedUrls.map((url)=> <Url key={url.id} urlObject={url}></Url>)}
+                    {user?.shortenedUrls.map((url)=> <Url key={url.id} contador={contador} setContador={setContador} urlObject={url}></Url>)}
                 </Links>
             </Container>
         </HomePage>
