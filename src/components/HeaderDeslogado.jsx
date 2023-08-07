@@ -4,24 +4,24 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 
-export default function HeaderDeslogado(){
+export default function HeaderDeslogado() {
     const navigate = useNavigate()
-    const {token} = useContext(UserContext)
+    const { token } = useContext(UserContext)
 
-    useEffect(()=>{
+    useEffect(() => {
         if (token) {
             navigate("/home")
         }
     }, [])
 
-    return(
-    <Header>
-        <Links>
-            <h1 onClick={()=>navigate("/login")}>Entrar</h1>
-            <h2 onClick={()=>navigate("/cadastro")}>Cadastrar-se</h2>
-        </Links>
-        <img onClick={()=>navigate("/")} src={logo} alt="Logo do site" />
-    </Header>
+    return (
+        <Header>
+            <Links>
+                <h1 onClick={() => navigate("/login")}>Entrar</h1>
+                <h2 onClick={() => navigate("/cadastro")}>Cadastrar-se</h2>
+            </Links>
+            <img onClick={() => navigate("/")} src={logo} alt="Logo do site" />
+        </Header>
     )
 }
 
